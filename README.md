@@ -181,7 +181,6 @@ This is what compiler transforms async methods to. The code inside the method do
 <br>
 <br>
 As you can notice, compiler-generated FooAsync method doesn’t contain any of the code our original FooAsync method had. That code represented the functionality of the method. So where is that code? That code is moved to state machine’s MoveNext method. Let’s take a look at Program.<FooAsync>d_1 struct now:
-<br>
 <pre>
 <code>
 [CompilerGenerated]
