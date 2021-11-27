@@ -51,7 +51,8 @@ public class MyAwaiter
 </pre>
 <br>
 We can see that the compiler error changed:<br>
-![image](https://user-images.githubusercontent.com/59767834/143689473-57ed8fdd-e804-408e-a8e8-0a1a9176ad72.png)
+![image](https://user-images.githubusercontent.com/59767834/143689835-f8bccd19-2d5c-4d1b-8e68-8efb3cdea0fd.png)
+
 <br>
 Now it says: 'MyAwaiter' does not implement 'INotifyCompletion'
 <br><br>
