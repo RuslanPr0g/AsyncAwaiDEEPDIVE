@@ -181,3 +181,36 @@ This is what compiler transforms async methods to. The code inside the method do
 <br>
 <br>
 As you can notice, compiler-generated FooAsync method doesn’t contain any of the code our original FooAsync method had. That code represented the functionality of the method. So where is that code? That code is moved to state machine’s MoveNext method. Let’s take a look at Program.<FooAsync>d_1 struct now:
+<pre>
+<code>
+[CompilerGenerated]
+[StructLayout(LayoutKind.Auto)]
+private struct <FooAsync>d__1 : IAsyncStateMachine
+{
+  public int <>1__state;
+  public AsyncTaskMethodBuilder <>t__builder;
+
+  void IAsyncStateMachine.MoveNext()
+  {
+	try
+	{
+	  Console.WriteLine("Async method that doesn't have await");
+	}
+	catch (Exception ex)
+	{
+	  this.<>1__state = -2;
+	  this.<>t__builder.SetException(ex);
+	  return;
+	}
+	this.<>1__state = -2;
+	this.<>t__builder.SetResult();
+  }
+
+  [DebuggerHidden]
+  void IAsyncStateMachine.SetStateMachine(IAsyncStateMachine stateMachine)
+  {
+	this.<>t__builder.SetStateMachine(stateMachine);
+  }
+}
+</code>
+</pre>
