@@ -181,6 +181,7 @@ This is what compiler transforms async methods to. The code inside the method do
 <br>
 <br>
 As you can notice, compiler-generated FooAsync method doesn’t contain any of the code our original FooAsync method had. That code represented the functionality of the method. So where is that code? That code is moved to state machine’s MoveNext method. Let’s take a look at Program.<FooAsync>d_1 struct now:
+<br>
 <pre>
 <code>
 [CompilerGenerated]
@@ -214,3 +215,9 @@ private struct <FooAsync>d__1 : IAsyncStateMachine
 }
 </code>
 </pre>
+<br>
+The MoveNext method contains method’s code inside of a try block. If some exception occurs in our code, it will be given to the method builder which propagates it all the way to the task. After that, it uses method builder’s SetResult method to indicate that the task is completed.
+<br>
+Now we saw how async methods look under the hood. For the sake of simplicity, I didn’t put any await inside of the FooAsync method, so our state machine didn’t have a lot of state transitions. It just executed our method and went to a completed state, i.e. our method executed synchronously. Now it is time to see how MoveNext method looks like when a method awaits some task inside of its body.
+
+# Await
