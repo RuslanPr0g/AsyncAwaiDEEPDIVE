@@ -139,3 +139,11 @@ class Program
 </pre>
 <br>
 We have an async method named FooAsync. You may notice that it lacks await operator, but I left it out for now for the sake of simplicity.
+<br>
+Now let’s take a look at the compiler generated code for this method. I am using dotPeek to decompile the containing .dll file. To see what is going on behind the scenes, you need to enable Show Compiler-generated Code option in dotPeek.
+<br>
+Compiler generated classes usually contain < and > in their names which are not valid C# identifiers so they don’t conflict with user-created artifacts.
+<br>
+Let’s take a look what compiler generated for our FooAsync method:
+![image](https://user-images.githubusercontent.com/59767834/143689794-6ed20163-2b08-42d6-b678-96a4f1184417.png)
+<br>
