@@ -26,6 +26,7 @@ public class MyAwaitableClass
 </pre>
 When I try to await an object of MyAwaitableClass type, I get the following error:
 ![image](https://user-images.githubusercontent.com/59767834/143689501-e4455ab3-3b6e-491e-b826-1eaae9d6888a.png)
+<br>
 It says: 'MyAwaitableClass' does not contain a definition for 'GetAwaiter' and no extension method 'GetAwaiter' accepting a first argument of type 'MyAwaitableClass' could be found (are you missing a using directive or an assembly reference?)<br>
 <br>
 Let’s add GetAwaiter method to our class:
