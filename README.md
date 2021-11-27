@@ -24,5 +24,5 @@ public class MyAwaitableClass
 }
 </code>
 </pre>
-When I try to await an object of MyAwaitableClass type, I get the following error:
+When I try to await an object of MyAwaitableClass type, I get the following error:<br>
 ![image](https://user-images.githubusercontent.com/59767834/143689121-d42e5b4f-1cf1-4ceb-adac-a0f238f41ecd.png)
