@@ -1,2 +1,2 @@
-# AsyncAwaiDEEPDIVE
-Deep dive into async await
+# Async and await
+keywords came with C# 5 as a cool new feature for handling asynchronous tasks. They allow us to specify tasks to be executed asynchronously in an easy and straightforward fashion. However, some people are mystified by asynchronous programming and are not sure how it actually works. I will try to give you an insight of the magic that happens under the hood when async and await are used.
