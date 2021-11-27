@@ -296,8 +296,8 @@ The following image contains an explanation of the above state machine:<br>
 
 ![image](https://user-images.githubusercontent.com/59767834/143690597-3ee67fd8-914e-462c-9b20-bcf47ec7d615.png)
 
-<br>Every time you create an async method, the compiler generates a state machine for it. Then for each await inside of that method, it does the following:<br>
+<br>Every time you create an async method, the compiler generates a state machine for it. Then for each await inside of that method, it does the following:
 <b>
-<br><br>Executes the method to the await expression
+<br>Executes the method to the await expression
 <br><br>Checks if the method being awaited has already completed: [If yes, executes the rest of the method] | [If no, uses callback to execute the rest of the method when the method being awaited completes]
 </b>
