@@ -299,5 +299,5 @@ The following image contains an explanation of the above state machine:<br>
 <br>Every time you create an async method, the compiler generates a state machine for it. Then for each await inside of that method, it does the following:
 <b>
 <br>Executes the method to the await expression
-<br><br>Checks if the method being awaited has already completed: [If yes, executes the rest of the method] | [If no, uses callback to execute the rest of the method when the method being awaited completes]
+<br>Checks if the method being awaited has already completed: [If yes, executes the rest of the method] | [If no, uses callback to execute the rest of the method when the method being awaited completes]
 </b>
