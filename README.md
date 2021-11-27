@@ -28,3 +28,30 @@ When I try to await an object of MyAwaitableClass type, I get the following erro
 ![image](https://user-images.githubusercontent.com/59767834/143689121-d42e5b4f-1cf1-4ceb-adac-a0f238f41ecd.png)
 <br>
 It says: 'MyAwaitableClass' does not contain a definition for 'GetAwaiter' and no extension method 'GetAwaiter' accepting a first argument of type 'MyAwaitableClass' could be found (are you missing a using directive or an assembly reference?)<br><br>
+<br><br>
+Let’s add GetAwaiter method to our class:
+<pre>
+<code>
+public class MyAwaitableClass
+{
+    public MyAwaiter GetAwaiter()
+    {
+        return new MyAwaiter();
+    }
+}
+
+public class MyAwaiter
+{
+    public bool IsCompleted
+    {
+        get { return false; }
+    }
+}
+</code>
+</pre>
+<br>
+We can see that the compiler error changed:
+<br>
+![image](https://user-images.githubusercontent.com/59767834/143689237-ff3a6a27-682f-4462-8954-5a42fc55a445.png)
+Now it says: 'MyAwaiter' does not implement 'INotifyCompletion'
+<br><br><br>
