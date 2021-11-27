@@ -15,6 +15,7 @@ namespace AsyncAwaitExampleUI
         private void button1_Click(object sender, EventArgs e)
         {
             _ = CallImportantMethod("User");
+            label1.Text = "Waiting for...";
         }
 
         private async Task CallImportantMethod(string name)
