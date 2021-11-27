@@ -143,9 +143,12 @@ We have an async method named FooAsync. You may notice that it lacks await opera
 Now let’s take a look at the compiler generated code for this method. I am using dotPeek to decompile the containing .dll file. To see what is going on behind the scenes, you need to enable Show Compiler-generated Code option in dotPeek.
 <br>
 Compiler generated classes usually contain < and > in their names which are not valid C# identifiers so they don’t conflict with user-created artifacts.
-<br>
+<br><br>
 Let’s take a look what compiler generated for our FooAsync method:<br>
 
 ![image](https://user-images.githubusercontent.com/59767834/143689866-8260f3b9-19ba-49b3-a73c-7a44cc625d75.png)
 
 <br>Our Program class contains Main and FooAsync methods as expected, but we can also see that compiler generated a struct called Program.<FooAsync>d__1. That struct is a state machine that implements the IAsyncStateMachine interface. Besides the IAsyncStateMachine interface methods, this struct also has the following fields:
+- <>1__state which indicates the current state of the state machine
+- <>t__builder of type AsyncTaskMethodBuilder which is used for creation of asynchronous methods and returning the resulting task. The AsyncTaskMethodBuilder struct is also intended for use by the compiler.
+We will see the code of this struct in more detail, but first let’s take a look at what compiler-generated FooAsync method looks like after we decompiled it:
