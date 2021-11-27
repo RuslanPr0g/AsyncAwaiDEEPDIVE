@@ -171,11 +171,13 @@ private static Task FooAsync()
 </pre>
 <br>
 This is what compiler transforms async methods to. The code inside the method does the following:
+<b>
 <br><br>Instantiate the method’s state machine
 <br><br>Create new AsyncTaskMethodBuilder and set it as state machine’s builder
 <br><br>Set the state machine to a starting state
 <br><br>Start the builder with the method’s state machine by calling the Start method.
 <br><br>Return the Task
+</b>
 <br>
 <br>
 As you can notice, compiler-generated FooAsync method doesn’t contain any of the code our original FooAsync method had. That code represented the functionality of the method. So where is that code? That code is moved to state machine’s MoveNext method. Let’s take a look at Program.<FooAsync>d_1 struct now:
