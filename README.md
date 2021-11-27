@@ -144,6 +144,7 @@ Now let’s take a look at the compiler generated code for this method. I am usi
 <br>
 Compiler generated classes usually contain < and > in their names which are not valid C# identifiers so they don’t conflict with user-created artifacts.
 <br>
-Let’s take a look what compiler generated for our FooAsync method:
-![image](https://user-images.githubusercontent.com/59767834/143689794-6ed20163-2b08-42d6-b678-96a4f1184417.png)
+Let’s take a look what compiler generated for our FooAsync method:<br>
+![image](https://user-images.githubusercontent.com/59767834/143689808-12d07465-110f-45d0-809a-729bc40123a6.png)
 <br>
+Our Program class contains Main and FooAsync methods as expected, but we can also see that compiler generated a struct called Program.<FooAsync>d__1. That struct is a state machine that implements the IAsyncStateMachine interface. Besides the IAsyncStateMachine interface methods, this struct also has the following fields:
