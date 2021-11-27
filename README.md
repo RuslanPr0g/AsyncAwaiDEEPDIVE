@@ -50,11 +50,11 @@ public class MyAwaiter
 </code>
 </pre>
 <br>
-We can see that the compiler error changed:
-![image](https://user-images.githubusercontent.com/59767834/143689844-edb1da32-ab6e-4c6d-9bc9-e0698c3db6c6.png)
+We can see that the compiler error changed:<br>
 
-<br>
-Now it says: 'MyAwaiter' does not implement 'INotifyCompletion'
+![image](https://user-images.githubusercontent.com/59767834/143689855-3af02787-84b0-4720-abfc-55f43e406269.png)
+
+<br>Now it says: 'MyAwaiter' does not implement 'INotifyCompletion'
 <br><br>
 Ok, let’s create implement the INotifyCompletion interface in MyAwaiter:
 <pre>
