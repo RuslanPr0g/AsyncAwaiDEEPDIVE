@@ -151,7 +151,9 @@ Let’s take a look what compiler generated for our FooAsync method:<br>
 ![image](https://user-images.githubusercontent.com/59767834/143689866-8260f3b9-19ba-49b3-a73c-7a44cc625d75.png)
 
 <br>Our Program class contains Main and FooAsync methods as expected, but we can also see that compiler generated a struct called Program.<FooAsync>d__1. That struct is a state machine that implements the IAsyncStateMachine interface. Besides the IAsyncStateMachine interface methods, this struct also has the following fields:
+    <br><br>
 <>1__state which indicates the current state of the state machine
+    <br><br>
 <>t__builder of type AsyncTaskMethodBuilder which is used for creation of asynchronous methods and returning the resulting task. The AsyncTaskMethodBuilder struct is also intended for use by the compiler.
-<br><br>
+<br><br><br>
 We will see the code of this struct in more detail, but first let’s take a look at what compiler-generated FooAsync method looks like after we decompiled it:
