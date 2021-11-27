@@ -74,11 +74,10 @@ public class MyAwaiter : INotifyCompletion
 </pre>
 <br>
 and see what the compiler error looks like now:
-<br>
 ![image](https://user-images.githubusercontent.com/59767834/143689305-a30f06c6-b318-433b-875b-78914ecd9348.png)
 <br>
 It says: ‘MyAwaiter’ does not contain a definition for ‘GetResult’
-<br>
+<br><br>
 So, we add a GetResult method and now we have the following:
 <br>
 <pre>
