@@ -112,7 +112,6 @@ public class MyAwaiter : INotifyCompletion
 And we can also see that there are no compiler errors,<br>
 
 ![image](https://user-images.githubusercontent.com/59767834/143689562-153f1498-5c66-4077-a5c2-96f0a5d94a49.png)
-
-<br>which means we have made an awaitable type.
+which means we have made an awaitable type.
 <br>
 Now that we know which pattern does the await expression leverage, we can take a look under the hood to see what actually happens when we use async and await.
