@@ -14,3 +14,13 @@ So, a type doesn’t even need to implement some specific interface in order to 
 In this case it is
 <br><br>
 <i>If it has certain methods with certain signatures, then it has to be awaitable.</i>
+<br><br>
+To give you an illustrative example of this, I will create some custom class and make it awaitable. So, here is my class:
+<pre>
+<code>
+public class MyAwaitableClass
+{
+
+}
+</code>
+</pre>
