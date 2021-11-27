@@ -157,3 +157,25 @@ Let’s take a look what compiler generated for our FooAsync method:<br>
 <>t__builder of type AsyncTaskMethodBuilder which is used for creation of asynchronous methods and returning the resulting task. The AsyncTaskMethodBuilder struct is also intended for use by the compiler.
 <br><br><br>
 We will see the code of this struct in more detail, but first let’s take a look at what compiler-generated FooAsync method looks like after we decompiled it:
+<pre>
+<code>
+private static Task FooAsync()
+{
+  Program.<FooAsync>d__1 stateMachine;
+  stateMachine.<>t__builder = AsyncTaskMethodBuilder.Create();
+  stateMachine.<>1__state = -1;
+  stateMachine.<>t__builder.Start<Program.<FooAsync>d__1>(ref stateMachine);
+  return stateMachine.<>t__builder.Task;
+}
+</code>
+</pre>
+<br>
+This is what compiler transforms async methods to. The code inside the method does the following:
+- Instantiate the method’s state machine
+- Create new AsyncTaskMethodBuilder and set it as state machine’s builder
+- Set the state machine to a starting state
+- Start the builder with the method’s state machine by calling the Start method.
+- Return the Task
+<br>
+<br>
+As you can notice, compiler-generated FooAsync method doesn’t contain any of the code our original FooAsync method had. That code represented the functionality of the method. So where is that code? That code is moved to state machine’s MoveNext method. Let’s take a look at Program.<FooAsync>d_1 struct now:
