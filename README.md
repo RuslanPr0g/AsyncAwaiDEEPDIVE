@@ -114,8 +114,28 @@ And we can also see that there are no compiler errors,<br>
 ![image](https://user-images.githubusercontent.com/59767834/143689594-5790c585-5a3a-4b2d-af11-5837b5ce4b16.png)
 
 <br>which means we have made an awaitable type.
-<br>
+<br><br>
 Now that we know which pattern does the await expression leverage, we can take a look under the hood to see what actually happens when we use async and await.
 
 # Async
+For every async method a state machine is generated. This state machine is a struct that implements IAsyncStateMachine interface from System.Runtime.CompilerServices namespace. This interface is intended for compiler use only and has the following methods:
+- MoveNext() - Moves the state machine to its next state.
+- SetStateMachine(IAsyncStateMachine) - Configures the state machine with a heap-allocated replica.
+Now let’s take a look at the following code: <br>
+<pre>
+<code>
+class Program
+{
+    static void Main(string[] args)
+    {
+    }
 
+    static async Task FooAsync()
+    {
+        Console.WriteLine("Async method that doesn't have await");
+    }
+}
+</code>
+</pre>
+<br>
+We have an async method named FooAsync. You may notice that it lacks await operator, but I left it out for now for the sake of simplicity.
