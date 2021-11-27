@@ -24,10 +24,11 @@ public class MyAwaitableClass
 }
 </code>
 </pre>
-When I try to await an object of MyAwaitableClass type, I get the following error:
-![image](https://user-images.githubusercontent.com/59767834/143689501-e4455ab3-3b6e-491e-b826-1eaae9d6888a.png)
-<br>
-It says: 'MyAwaitableClass' does not contain a definition for 'GetAwaiter' and no extension method 'GetAwaiter' accepting a first argument of type 'MyAwaitableClass' could be found (are you missing a using directive or an assembly reference?)<br>
+When I try to await an object of MyAwaitableClass type, I get the following error:<br>
+
+![image](https://user-images.githubusercontent.com/59767834/143690050-8ca2ee79-1a36-4fdc-9fc8-7fa0cc74e718.png)
+
+<br>It says: 'MyAwaitableClass' does not contain a definition for 'GetAwaiter' and no extension method 'GetAwaiter' accepting a first argument of type 'MyAwaitableClass' could be found (are you missing a using directive or an assembly reference?)<br>
 <br>
 Let’s add GetAwaiter method to our class:
 <pre>
@@ -73,10 +74,11 @@ public class MyAwaiter : INotifyCompletion
 </code>
 </pre>
 <br>
-and see what the compiler error looks like now:
-![image](https://user-images.githubusercontent.com/59767834/143689305-a30f06c6-b318-433b-875b-78914ecd9348.png)
-<br>
-It says: ‘MyAwaiter’ does not contain a definition for ‘GetResult’
+and see what the compiler error looks like now:<br>
+
+![image](https://user-images.githubusercontent.com/59767834/143690060-2d5fce15-aa16-4510-a4db-a96c359a3192.png)
+
+<br>It says: ‘MyAwaiter’ does not contain a definition for ‘GetResult’
 <br><br>
 So, we add a GetResult method and now we have the following:
 <br>
