@@ -221,3 +221,83 @@ The MoveNext method contains method’s code inside of a try block. If some exce
 Now we saw how async methods look under the hood. For the sake of simplicity, I didn’t put any await inside of the FooAsync method, so our state machine didn’t have a lot of state transitions. It just executed our method and went to a completed state, i.e. our method executed synchronously. Now it is time to see how MoveNext method looks like when a method awaits some task inside of its body.
 
 # Await
+Let’s take a look at the following method:<br>
+
+![image](https://user-images.githubusercontent.com/59767834/143690508-17a726c9-2b7c-486a-b102-eee4361fa7ff.png)
+
+<br>It awaits some QuxAsync method and uses its task result.
+<br>
+If we decompile it using dotPeek, we will notice that the compiler generated method has the same structure as FooAsync even if the original methods are different:<br>
+
+![image](https://user-images.githubusercontent.com/59767834/143690564-16dc696b-05f5-4482-a7f2-d46f2af1d72e.png)
+
+<br>What makes the difference is the state machine’s MoveNext method. Now that we have an await expression inside of our method, the state machine loks like this:<br>
+<pre>
+<code>
+[CompilerGenerated]
+[StructLayout(LayoutKind.Auto)]
+private struct <BarAsync>d__2 : IAsyncStateMachine
+{
+  public int <>1__state;
+  public AsyncTaskMethodBuilder <>t__builder;
+  private TaskAwaiter<int> <>u__1;
+
+  void IAsyncStateMachine.MoveNext()
+  {
+	int num1 = this.<>1__state;
+	try
+	{
+	  TaskAwaiter<int> awaiter;
+	  int num2;
+	  if (num1 != 0)
+	  {
+		Console.WriteLine("This happens before await");
+		awaiter = Program.QuxAsync().GetAwaiter();
+		if (!awaiter.IsCompleted)
+		{
+		  this.<>1__state = num2 = 0;
+		  this.<>u__1 = awaiter;
+		  this.<>t__builder.AwaitUnsafeOnCompleted<TaskAwaiter<int>, Program.<BarAsync>d__2>(ref awaiter, ref this);
+		  return;
+		}
+	  }
+	  else
+	  {
+		awaiter = this.<>u__1;
+		this.<>u__1 = new TaskAwaiter<int>();
+		this.<>1__state = num2 = -1;
+	  }
+	  Console.WriteLine("This happens after await. The result of await is " + (object) awaiter.GetResult());
+	}
+	catch (Exception ex)
+	{
+	  this.<>1__state = -2;
+	  this.<>t__builder.SetException(ex);
+	  return;
+	}
+	this.<>1__state = -2;
+	this.<>t__builder.SetResult();
+  }
+
+  [DebuggerHidden]
+  void IAsyncStateMachine.SetStateMachine(IAsyncStateMachine stateMachine)
+  {
+	this.<>t__builder.SetStateMachine(stateMachine);
+  }
+}
+</code>
+</pre>
+<br>
+The following image contains an explanation of the above state machine:<br>
+
+![image](https://user-images.githubusercontent.com/59767834/143690586-23a6413d-40c3-4e63-a0ca-eb103eb62399.png)
+
+<br>So, what await actually does is the following:<br>
+
+![image](https://user-images.githubusercontent.com/59767834/143690597-3ee67fd8-914e-462c-9b20-bcf47ec7d615.png)
+
+<br>Every time you create an async method, the compiler generates a state machine for it. Then for each await inside of that method, it does the following:<br>
+<b>
+<br><br>Executes the method to the await expression
+<br><br>Checks if the method being awaited has already completed: [If yes, executes the rest of the method] | [If no, uses callback to execute the rest of the method when the method being awaited completes]
+</b>
