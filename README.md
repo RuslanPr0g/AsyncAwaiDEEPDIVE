@@ -25,10 +25,7 @@ public class MyAwaitableClass
 </code>
 </pre>
 When I try to await an object of MyAwaitableClass type, I get the following error:
-<br>
-![image](https://user-images.githubusercontent.com/59767834/143689121-d42e5b4f-1cf1-4ceb-adac-a0f238f41ecd.png)
-
-
+![image](https://user-images.githubusercontent.com/59767834/143689501-e4455ab3-3b6e-491e-b826-1eaae9d6888a.png)
 It says: 'MyAwaitableClass' does not contain a definition for 'GetAwaiter' and no extension method 'GetAwaiter' accepting a first argument of type 'MyAwaitableClass' could be found (are you missing a using directive or an assembly reference?)<br>
 <br>
 Let’s add GetAwaiter method to our class:
@@ -113,8 +110,7 @@ public class MyAwaiter : INotifyCompletion
 </pre>
 <br>
 And we can also see that there are no compiler errors,
-<br>
-![image](https://user-images.githubusercontent.com/59767834/143689372-dfc29ec4-e5c0-46d5-ac70-1d455bef200d.png)
+![image](https://user-images.githubusercontent.com/59767834/143689511-5ea211a3-90c0-49c4-ba99-f468cc740da8.png)
 <br>
 which means we have made an awaitable type.
 <br>
