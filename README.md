@@ -180,42 +180,11 @@ This is what compiler transforms async methods to. The code inside the method do
 </b>
 <br>
 <br>
-As you can notice, compiler-generated FooAsync method doesn’t contain any of the code our original FooAsync method had. That code represented the functionality of the method. So where is that code? That code is moved to state machine’s MoveNext method. Let’s take a look at Program.<FooAsync>d_1 struct now:
-<pre>
-<code>
-[CompilerGenerated]
-[StructLayout(LayoutKind.Auto)]
-private struct <FooAsync>d__1 : IAsyncStateMachine
-{
-  public int <>1__state;
-  public AsyncTaskMethodBuilder <>t__builder;
+As you can notice, compiler-generated FooAsync method doesn’t contain any of the code our original FooAsync method had. That code represented the functionality of the method. So where is that code? That code is moved to state machine’s MoveNext method. Let’s take a look at Program.<FooAsync>d_1 struct now:<br>
 
-  void IAsyncStateMachine.MoveNext()
-  {
-	try
-	{
-	  Console.WriteLine("Async method that doesn't have await");
-	}
-	catch (Exception ex)
-	{
-	  this.<>1__state = -2;
-	  this.<>t__builder.SetException(ex);
-	  return;
-	}
-	this.<>1__state = -2;
-	this.<>t__builder.SetResult();
-  }
+![image](https://user-images.githubusercontent.com/59767834/143690768-14fa73d5-5bcb-4bb2-b007-4f44fc2b0178.png)
 
-  [DebuggerHidden]
-  void IAsyncStateMachine.SetStateMachine(IAsyncStateMachine stateMachine)
-  {
-	this.<>t__builder.SetStateMachine(stateMachine);
-  }
-}
-</code>
-</pre>
-<br>
-The MoveNext method contains method’s code inside of a try block. If some exception occurs in our code, it will be given to the method builder which propagates it all the way to the task. After that, it uses method builder’s SetResult method to indicate that the task is completed.
+<br>The MoveNext method contains method’s code inside of a try block. If some exception occurs in our code, it will be given to the method builder which propagates it all the way to the task. After that, it uses method builder’s SetResult method to indicate that the task is completed.
 <br>
 Now we saw how async methods look under the hood. For the sake of simplicity, I didn’t put any await inside of the FooAsync method, so our state machine didn’t have a lot of state transitions. It just executed our method and went to a completed state, i.e. our method executed synchronously. Now it is time to see how MoveNext method looks like when a method awaits some task inside of its body.
 
