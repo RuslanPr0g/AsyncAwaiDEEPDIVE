@@ -54,4 +54,65 @@ We can see that the compiler error changed:
 <br>
 ![image](https://user-images.githubusercontent.com/59767834/143689237-ff3a6a27-682f-4462-8954-5a42fc55a445.png)
 Now it says: 'MyAwaiter' does not implement 'INotifyCompletion'
-<br><br><br>
+<br><br>
+Ok, let’s create implement the INotifyCompletion interface in MyAwaiter:
+<pre>
+<code>
+public class MyAwaiter : INotifyCompletion
+{
+    public bool IsCompleted
+    {
+        get { return false; }
+    }
+
+    public void OnCompleted(Action continuation)
+    {
+    }
+}
+</code>
+</pre>
+<br>
+and see what the compiler error looks like now:
+<br>
+![image](https://user-images.githubusercontent.com/59767834/143689305-a30f06c6-b318-433b-875b-78914ecd9348.png)
+<br>
+It says: ‘MyAwaiter’ does not contain a definition for ‘GetResult’
+<br>
+So, we add a GetResult method and now we have the following:
+<br>
+<pre>
+<code>
+public class MyAwaitableClass
+{
+    public MyAwaiter GetAwaiter()
+    {
+        return new MyAwaiter();
+    }
+}
+
+public class MyAwaiter : INotifyCompletion
+{
+    public void GetResult()
+    {
+    }
+
+    public bool IsCompleted
+    {
+        get { return false; }
+    }
+
+    //From INotifyCompletion
+    public void OnCompleted(Action continuation)
+    {
+    }
+}
+</code>
+</pre>
+<br>
+And we can also see that there are no compiler errors,
+<br>
+![image](https://user-images.githubusercontent.com/59767834/143689372-dfc29ec4-e5c0-46d5-ac70-1d455bef200d.png)
+<br>
+which means we have made an awaitable type.
+<br>
+Now that we know which pattern does the await expression leverage, we can take a look under the hood to see what actually happens when we use async and await.
