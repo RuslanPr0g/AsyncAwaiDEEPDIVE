@@ -6,11 +6,11 @@ C# language compiles some of the features as a syntactic sugar, which means that
 - It has to have the following method: INotifyCompletion GetAwaiter()
 - Besides implementing the INotifyCompletion interface, the return type of the GetAwaiter method has to have the following: IsCompleted property of type bool, GetResult() method which returns void
 If you take a look at <a src="https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?redirectedfrom=MSDN&view=net-6.0">Task</a> class, you will see that it meets all the above requirements.
-<br>
+<br><br>
 So, a type doesn’t even need to implement some specific interface in order to be awaitable. It just has to have a method with a specific signature. It is similar to duck typing.
-<br>
+<br><br>
 <i>If it walks like a duck and it quacks like a duck, then it must be a duck.</i>
-<br>
+<br><br>
 In this case it is
-<br>
+<br><br>
 <i>If it has certain methods with certain signatures, then it has to be awaitable.</i>
