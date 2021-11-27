@@ -12,11 +12,19 @@ namespace AsyncAwaitExampleUI
 
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            var operation = Task.Factory.StartNew(() => BigLongImportantMethod("User"));
+            _ = CallImportantMethod("User");
+        }
 
-            label1.Text = await operation;
+        private async Task CallImportantMethod(string name)
+        {
+            label1.Text = await BigLongImportantMethodAsync(name);
+        }
+
+        private Task<string> BigLongImportantMethodAsync(string name)
+        {
+            return Task.Factory.StartNew(() => BigLongImportantMethod(name));
         }
 
         private string BigLongImportantMethod(string name)
